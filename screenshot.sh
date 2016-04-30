@@ -12,14 +12,12 @@ if maim -s $OUTPUT_DIR/$OUTPUT_NAME ; then
         gimp $OUTPUT_DIR/$OUTPUT_NAME
     fi
 
-    # Copy via scp to remote serwer
+    # Copy via scp to remote server
     if scp $OUTPUT_DIR/$OUTPUT_NAME $REMOTE:$PATH_ON_REMOTE > /dev/null 2> $ERR && \
        echo -n "http://$REMOTE_PREFIX$OUTPUT_NAME" | xclip
     then
-        notify-send "Sceenshot send to $REMOTE, URL coppied to clipboard"
+        notify-send "Seen shot send to $REMOTE, URL copied to clipboard"
     else
         notify-send "Smt went wrong. Shot saved as $OUTPUT_DIR/$OUTPUT_NAME"
     fi
-	#echo $res | grep -qo '"status":200' && link=$(echo $res | sed -e 's/.*"link":"\([^"]*\).*/\1/' -e 's/\\//g')
-	#test -n "$link" && (printf $link | xclip; printf "\a") || echo "$res" > "$img.error"
 fi
