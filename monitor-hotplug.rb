@@ -16,6 +16,7 @@ def exclude(except)
 end
 
 def two_monitors(a, b)
+  puts 'two'
   `xrandr --output #{a} --auto --primary --output #{b} --auto`
 
   a_size = get_size a
@@ -28,34 +29,25 @@ def two_monitors(a, b)
 end
 
 def one_monitor(a)
+  puts 'one'
   `xrandr #{exclude [a]} --output #{a} --auto`
   callback
 end
 
 def lid_open?
   got = `cat /proc/acpi/button/lid/LID/state | awk '{print $2}'`
-  puts got
   got.include? 'open'
 end
 
-prev_state = [false] * SOURCES.length
 
-loop do
-  sleep 5
+# Find connected monitors is connected
+xrandr_out = `xrandr`
+state = SOURCES.map { |source| xrandr_out.include? "#{source} connected" }
+state[0] = lid_open?
 
-  # Find connected monitors is connected
-  xrandr_out = `xrandr`
-  state = SOURCES.map { |source| xrandr_out.include? "#{source} connected" }
-  puts lid_open?
-  state[0] = lid_open?
-
-  case state
-  when prev_state then next
-  when [true, true, false, false] then two_monitors SOURCES[1], SOURCES[0]
-  when [true, false, false, false] then one_monitor SOURCES[0]
-  when [false, true, false, false] then one_monitor SOURCES[1]
-  end
-
-  prev_state = state
+case state
+when [true, true, false, false] then two_monitors SOURCES[1], SOURCES[0]
+when [true, false, false, false] then one_monitor SOURCES[0]
+when [false, true, false, false] then one_monitor SOURCES[1]
 end
 
