@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --bg-fill ~/.xmonad/wall.png --bg-fill ~/.xmonad/wall.png &
+feh --bg-fill /home/anton/.xmonad/wall.png --bg-fill /home/anton/.xmonad/wall.png &

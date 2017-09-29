@@ -1,2 +1,4 @@
 #!/bin/bash
-yeganesh -x -- -b -nb '#101010' -nf '#d2c5bc' -sb '#d2c5bc' -sf '#101010' -fn "Terminus-9"
+source /scripts/colors.sh
+
+yegonesh -- -b -nb $myBlack -nf $myWhite -sb $myWhite -sf $myBlack -fn "xos4 Terminus-12"

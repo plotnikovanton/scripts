@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOUCHPAD="AlpsPS/2 ALPS DualPoint TouchPad"
+TOUCHPAD="SynPS/2 Synaptics TouchPad"
 
 if [[ $1 == -e ]]; then
     xinput enable "$TOUCHPAD"

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-OUTPUT_DIR=/data/screenshots
+OUTPUT_DIR=$HOME/screenshots
 OUTPUT_NAME=shot_`date +%Y%m%d%H%M%S`.png
 REMOTE=kaliwe.ru
 REMOTE_PREFIX=screenshots.kaliwe.ru/anton/
 PATH_ON_REMOTE=screenshots/
-ERR=/data/screenshots/err.log
+ERR=$OUTPUT_DIR/err.log
 
 if maim -s $OUTPUT_DIR/$OUTPUT_NAME ; then
     if [[ $1 == -e ]]; then

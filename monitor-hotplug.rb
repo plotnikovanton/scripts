@@ -1,6 +1,6 @@
-#!/bin/ruby
+#!/usr/bin/env ruby
 
-SOURCES = %w(eDP VGA-0 HDMI-0 DisplayPort-0).freeze
+SOURCES = %w(eDP VGA-0 HDMI2 DisplayPort-0).freeze
 
 def callback
   `xmonad --restart`
