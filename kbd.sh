@@ -6,10 +6,10 @@ if [[ $1 == -d ]]; then
 elif [[ $1 == -b ]]; then
     setxkbmap us,ru -option 'grp:rctrl_toggle'
 elif [[ $1 == -t ]]; then
-    if setxkbmap -print | grep -q "prog"; then
+    if setxkbmap -print | grep -q "dvp"; then
         setxkbmap us,ru -option 'grp:rctrl_toggle'
     else
-        setxkbmap prog,prog dvorak,diktor -option 'grp:rctrl_toggle'
+        setxkbmap us,ru dvp,diktor -option 'grp:rctrl_toggle'
     fi
 elif [[ $1 == -login ]]; then
     setxkbmap us,us dvp, -option 'grp:rctrl_toggle'
