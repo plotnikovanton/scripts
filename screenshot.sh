@@ -8,16 +8,21 @@ PATH_ON_REMOTE=screenshots/
 ERR=$OUTPUT_DIR/err.log
 
 if maim -s $OUTPUT_DIR/$OUTPUT_NAME ; then
-    if [[ $1 == -e ]]; then
-        gimp $OUTPUT_DIR/$OUTPUT_NAME
-    fi
-
-    # Copy via scp to remote server
-    if scp $OUTPUT_DIR/$OUTPUT_NAME $REMOTE:$PATH_ON_REMOTE > /dev/null 2> $ERR && \
-       echo -n "http://$REMOTE_PREFIX$OUTPUT_NAME" | xclip
-    then
-        notify-send "Seen shot send to $REMOTE, URL copied to clipboard"
+    # Upload to remote server
+    if [[ $1 == -r ]]; then
+        if scp $OUTPUT_DIR/$OUTPUT_NAME $REMOTE:$PATH_ON_REMOTE > /dev/null 2> $ERR && \
+           echo -n "http://$REMOTE_PREFIX$OUTPUT_NAME" | xclip
+        then
+            notify-send "Seen shot send to $REMOTE, URL copied to clipboard"
+        else
+            notify-send "Smt went wrong. Shot saved as $OUTPUT_DIR/$OUTPUT_NAME"
+        fi
     else
-        notify-send "Smt went wrong. Shot saved as $OUTPUT_DIR/$OUTPUT_NAME"
+        if xclip -selection clipboard -t image/png -i $OUTPUT_DIR/$OUTPUT_NAME
+        then
+            notify-send "Your screenshot copied to clipboard"
+        else
+            notify-send "Smt went wrong. Shot saved as $OUTPUT_DIR/$OUTPUT_NAME"
+        fi
     fi
 fi
